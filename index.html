@@ -3,360 +3,119 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Our Almost‑Wedding — For You 🤍</title>
-  <meta name="description" content="Muted wedding vibes, digital‑camera photos, and little vows for you. Audio starts on tap." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>Our Almost-Wedding — For You 🤍</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#f5f1ea; /* linen/beige */
-      --ink:#3f3a36; /* soft charcoal */
-      --muted:#e9e2d9;
-      --champ:#efe6d9;
-      --gold:#c5a76e;
-      --coffee:#6e5b4b;
-      --grey:#9c9c9c;
-      --white:#ffffff;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
-    body{font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:
-      linear-gradient(180deg,#f7f4ee 0%,#f1ece3 100%);position:relative;overflow-x:hidden}
-    /* subtle paper/noise texture */
-    body.noise::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(rgba(0,0,0,.05) 1px,transparent 1px);background-size:3px 3px;mix-blend-mode:multiply;opacity:.35;z-index:1}
+    body{margin:0;font-family:'Montserrat',sans-serif;background:linear-gradient(180deg,#f7f4ee 0%,#f1ece3 100%);color:#3f3a36;overflow-x:hidden}
 
-    .sparkles{position:fixed;inset:0;pointer-events:none;z-index:2}
+    header.hero{display:grid;place-items:center;min-height:90vh;text-align:center;padding:2rem}
+    h1{font-family:'Great Vibes',cursive;font-size:clamp(40px,8vw,92px);margin:0 0 1rem}
+    .lede{font-family:'Playfair Display',serif;font-size:1.2rem;max-width:60ch;margin:.5rem auto 0;opacity:.85}
+    .controls{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+    button{appearance:none;border:none;padding:.7rem 1.4rem;border-radius:999px;font-weight:600;cursor:pointer;box-shadow:0 6px 14px rgba(0,0,0,.1);transition:transform .2s}
+    button:active{transform:scale(.95)}
+    #yesBtn{background:#c5a76e;color:#fff}
+    #noBtn{background:#9c9c9c;color:#fff;position:relative}
 
-    .section{padding:56px min(6vw,48px)}
-    header.hero{display:grid;place-items:center;min-height:90vh;text-align:center;padding:7vh 6vw;position:relative}
-    .hero h1{font-family:'Great Vibes',cursive;font-size:clamp(40px,8vw,92px);margin:0 0 .25rem;line-height:1}
-    .hero p.lede{font-family:'Playfair Display',serif;font-size:clamp(16px,2.4vw,22px);opacity:.85;max-width:60ch;margin:.75rem auto 0}
+    section{padding:3rem 1rem;max-width:1000px;margin:0 auto}
+    h2{font-family:'Playfair Display',serif;font-size:2rem;text-align:center;margin-bottom:1rem}
 
-    .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(0,0,0,.06);background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(239,230,217,.7));box-shadow:0 6px 20px rgba(0,0,0,.06);font-size:.9rem}
-    .badge svg{width:20px;height:20px}
-
-    .section h2{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:.3px;font-size:clamp(22px,3vw,32px);margin:0 0 18px}
-
-    /* Film roll gallery */
+    /* Film roll */
     .film-strip{display:grid;grid-auto-flow:column;grid-auto-columns:70vw;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
-    .frame{position:relative;aspect-ratio:3/4;background:#111;border-radius:16px;padding:16px;scroll-snap-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15)}
-    .frame::before,.frame::after{content:"";position:absolute;inset:6px;border:2px dashed rgba(255,255,255,.12);border-radius:12px;pointer-events:none}
-    .frame img{width:100%;height:100%;object-fit:cover;border-radius:10px;filter:contrast(1.05) saturate(.95) brightness(.98)}
-    .stamp{position:absolute;right:14px;bottom:12px;font-family:'Montserrat',monospace;font-weight:600;font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.88);text-shadow:0 1px 3px rgba(0,0,0,.5)}
-    .stamp .dot{display:inline-block;width:6px;height:6px;background:#ff3b30;border-radius:50%;margin-right:6px;transform:translateY(1px)}
-    .gallery-hint{text-align:center;font-size:.9rem;opacity:.7;margin-top:8px}
-
-    /* Notes */
-    .notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .note{perspective:1200px}
-    .card{position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+    .frame{position:relative;aspect-ratio:3/4;background:#111;border-radius:16px;padding:10px;scroll-snap-align:center;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+    .card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s}
     .card.is-flipped{transform:rotateY(180deg)}
-    .card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.12)}
-    .card-face.front{background:#fff;display:grid;place-items:center;padding:16px}
+    .card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;overflow:hidden}
+    .card-face.front{background:#fff;display:grid;place-items:center}
     .card-face.front .thumb{width:100%;height:100%;object-fit:cover}
-    .card-face.back{transform:rotateY(180deg);background:linear-gradient(180deg,#fff,#f7f1e9);border:1px solid rgba(0,0,0,.06);padding:18px}
-    .note h3{font-family:'Playfair Display',serif;margin:0 0 4px;font-size:20px}
-    .note p{margin:0;line-height:1.5}
-    .note .meta{margin-top:10px;font-size:12px;opacity:.6}
+    .card-face.back{background:#fff;transform:rotateY(180deg);padding:1rem;display:flex;flex-direction:column;justify-content:center}
 
-    .controls{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px}
-    .btn{appearance:none;border:none;background:linear-gradient(180deg,#fff,#f0eadf);color:var(--coffee);padding:.6rem .9rem;border-radius:999px;box-shadow:0 8px 16px rgba(0,0,0,.08),inset 0 0 0 1px rgba(0,0,0,.08);font-weight:600;cursor:pointer}
-    .btn:active{transform:translateY(1px)}
+    /* Notes grid */
+    .notes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+    .notes-grid .card{aspect-ratio:3/4;width:100%}
+    .note h3{font-family:'Playfair Display',serif;font-size:18px;margin:0 0 6px}
+    .note p{font-size:0.95rem;line-height:1.6;margin:0 0 6px}
+    .note .meta{font-size:12px;opacity:.6;margin-top:6px}
 
-    .footer{text-align:center;padding:48px 16px;font-size:.9rem;opacity:.8}
-
-    /* Entry overlay (for iOS audio trigger) */
-    #gate{position:fixed;inset:0;display:grid;place-items:center;background:radial-gradient(1000px 600px at 50% -10%,rgba(255,255,255,.9),rgba(239,230,217,.92) 40%,rgba(229,219,205,.96) 70%);z-index:999;transition:opacity .6s ease}
-    .gate-card{text-align:center;padding:28px 22px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.75));border:1px solid rgba(0,0,0,.05);box-shadow:0 20px 40px rgba(0,0,0,.12);max-width:520px;margin:20px}
-    .gate-card h1{font-family:'Great Vibes',cursive;font-size:clamp(42px,7vw,86px);margin:0;color:var(--coffee)}
-    .gate-card p{margin:.5rem auto 1rem;max-width:42ch}
-    .gate-actions{display:flex;gap:10px;justify-content:center}
-    .small{font-size:.85rem;opacity:.7}
-    .ring{width:22px;height:22px;vertical-align:-3px}
-
-    @media (min-width:800px){.film-strip{grid-auto-columns:320px}}
-    .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;border:0;padding:0;white-space:nowrap;clip-path:inset(50%);clip:rect(0 0 0 0);overflow:hidden}
-
-    /* Proposal extras */
-    .proposal-controls{gap:16px;flex-wrap:wrap}
-    .btn-yes{background:linear-gradient(180deg,#fff,#f3eadb);border:2px solid rgba(197,167,110,.35);box-shadow:0 10px 22px rgba(197,167,110,.25),inset 0 0 0 1px rgba(0,0,0,.06)}
-    .btn-no{position:relative}
-    /* success modal */
-    #yesModal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.35);z-index:1000}
-    .yes-card{background:linear-gradient(180deg,#fff,#f7f1e9);border:1px solid rgba(0,0,0,.06);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 24px 50px rgba(0,0,0,.18);max-width:520px;margin:16px}
-    .yes-card h2{font-family:'Great Vibes',cursive;font-size:clamp(40px,6vw,72px);margin:0;color:var(--coffee)}
-    .yes-actions{margin-top:14px;display:flex;gap:10px;justify-content:center}
-/* --- Fix photo fit --- */
-.card-face.front { padding: 0 !important; }
-.card-face.front .thumb {
-  object-fit: contain !important;  /* keep the whole photo visible */
-  background: #000;                /* tasteful letterbox bars */
-}
-
-/* Optional: if your photos look better a bit zoomed but not cropped hard,
-   try this instead of contain:
-   .card-face.front .thumb { object-fit: cover; object-position: 50% 30%; }
-*/
-
-/* Reduce the inner frame padding (less “holder” around the photo) */
-.frame { padding: 10px !important; }
-
-/* --- Tighter, more elegant note typography --- */
-.note h3 {
-  font-size: 18px !important;
-  margin: 0 0 6px !important;
-}
-.note p {
-  font-size: 0.95rem !important;
-  line-height: 1.6 !important;
-  margin: 0 0 6px !important;
-}
-
-/* --- Loosen the cards in the notes grid --- */
-.notes-grid { gap: 26px !important; }
-
-/* If the notes section still feels dense on small screens */
-@media (max-width: 420px) {
-  .notes-grid { gap: 28px !important; }
-}
-
+    footer{text-align:center;padding:2rem;font-size:.9rem;opacity:.8}
   </style>
 </head>
-<body class="noise">
-  <!-- Entry overlay (ensures audio starts on user gesture on iPhone/Safari) -->
-  <div id="gate" aria-modal="true" role="dialog">
-    <div class="gate-card">
-      <div class="badge" aria-hidden="true">
-        <!-- simple ring icon -->
-        <svg class="ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="14" r="6"></circle>
-          <path d="M9 6l3-3 3 3"></path>
-          <rect x="10.5" y="6" width="3" height="2" rx="0.5"></rect>
-        </svg>
-        Save‑Our‑Love
-      </div>
-      <h1>Our Forever, Loading…</h1>
-      <p class="lede">Tiny wedding vibes, soft film photos, and love notes from me to you. Tap below to enter — sound on.</p>
-      <div class="gate-actions">
-        <button class="btn" id="enterBtn">Enter</button>
-        <button class="btn" id="muteBtn" aria-pressed="false">Mute</button>
-      </div>
-      <p class="small">Best on mobile • Audio starts with your tap</p>
-    </div>
-  </div>
-
-  <div class="sparkles" id="sparkles"></div>
-
-  <header class="hero section" id="top">
-    <div class="badge" aria-label="Wedding cue">
-      <svg class="ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="14" r="6"></circle>
-        <path d="M9 6l3-3 3 3"></path>
-        <rect x="10.5" y="6" width="3" height="2" rx="0.5"></rect>
-      </svg>
-      Save‑Our‑Love
-    </div>
+<body>
+  <header class="hero">
     <h1>Lababy, can we please get married? 💍</h1>
-    <p class="lede">A little virtual proposal while you crush finals. Tap “Yes” to start our forever (take a peek below).</p>
-    <div class="controls proposal-controls" role="group" aria-label="Proposal choices">
-      <button class="btn btn-yes" id="yesBtn" aria-label="Yes, marry me">Yes</button>
-      <button class="btn btn-no" id="noBtn" aria-label="No (playful)">No</button>
-      <button class="btn" id="audioToggle">Pause Music</button>
+    <p class="lede">A little virtual proposal while you crush finals. Tap “Yes” to start our forever (peek below!).</p>
+    <div class="controls">
+      <button id="yesBtn">Yes 🤍</button>
+      <button id="noBtn">No 🙈</button>
     </div>
   </header>
 
-  <section class="section">
-    <h2>Our camera roll</h2>
+  <section>
+    <h2>Our Camera Roll</h2>
     <div class="film-strip" id="film"></div>
-    <div class="gallery-hint">Swipe ◄ ► • Tap a photo to flip for a note</div>
   </section>
 
-  <section class="section">
-    <h2>Little vows for you</h2>
+  <section>
+    <h2>Little Vows</h2>
     <div class="notes-grid" id="notes"></div>
   </section>
 
-  <footer class="footer">Made with ♥ by Fardeen • Vancouver → You</footer>
-
-  <!-- success modal -->
-  <div id="yesModal" role="dialog" aria-modal="true" aria-labelledby="yesTitle">
-    <div class="yes-card">
-      <h2 id="yesTitle">She said yes ✨</h2>
-      <p>Okay, now let’s pick photos and write vows. Scroll for the film roll ↓</p>
-      <div class="yes-actions">
-        <button class="btn" id="closeYes">Continue</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Add your song file to /assets/audio/song.mp3 -->
-  <audio id="bgm" src="assets/audio/song.mp3" preload="auto" loop></audio>
+  <footer>Made with ♥ by Fardeen • Vancouver → You</footer>
 
   <script>
-    // ====== CONFIG (edit these) ======
+    // === Proposal buttons ===
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    function moveNo(){
+      const x = Math.floor(Math.random()*200)-100;
+      const y = Math.floor(Math.random()*200)-100;
+      noBtn.style.transform = `translate(${x}px,${y}px)`;
+    }
+    noBtn.addEventListener('mouseover', moveNo);
+    noBtn.addEventListener('click', moveNo);
+    yesBtn.addEventListener('click', ()=> alert('Yay! You said Yes! 💍'));
+
+    // === Photos + Notes ===
     const PHOTOS = [
-      // Replace src with your own images in /assets/img
-      {src:'assets/img/photo1.png', alt:'Us being cute', noteTitle:'For your finals', note:'I scheduled a daily check-in. I’m here for proofreads and pep talks—always.'},
-      {src:'assets/img/photo2.png', alt:'Coffee date idea', noteTitle:'Coffee + vows', note:'As soon as finals end, let’s do a tiny “just us” ceremony with coffee & cake.'},
-      {src:'assets/img/photo3.png', alt:'Laughs', noteTitle:'The promise', note:'I’ll marry you as soon as we can, and I’ll keep choosing you every day.'},
-      {src:'assets/img/cartoon-us.png', alt:'Cartoon of us', noteTitle:'The future', note:'Home is anywhere you are. I’m already planning our forever.'}
+      {src:'assets/img/photo1.png',alt:'Photo 1',noteTitle:'For your finals',note:'I’m here for proofreads and pep talks—always.'},
+      {src:'assets/img/photo2.png',alt:'Photo 2',noteTitle:'Coffee + vows',note:'As soon as finals end, let’s do a tiny “just us” ceremony.'},
+      {src:'assets/img/photo3.png',alt:'Photo 3',noteTitle:'The promise',note:'I’ll marry you as soon as we can.'},
+      {src:'assets/img/cartoon-us.png',alt:'Cartoon us',noteTitle:'The future',note:'Home is anywhere you are.'}
     ];
-
     const NOTES = [
-      { title:'Your colors', text:'Muted beige, soft gold, cozy coffee—this site is all your palette because you are my aesthetic.' },
-      { title:'Study snack IOU', text:'Redeemable for all the sushi in the world, and matcha' },
-      { title:'Check‑in plan', text:'text whenever wherever. Finals mode but together.' },
-      { title:'Date idea', text:'You watch a movie, i watch you' },
+      {title:'Your colors',text:'Muted beige, champagne, and gold—your palette.'},
+      {title:'Study snack IOU',text:'Redeemable for sushi + matcha dates.'},
+      {title:'Check-in plan',text:'Text whenever, wherever. Finals mode but together.'},
+      {title:'Date idea',text:'You watch a movie, I watch you.'}
     ];
-
-    // ====== Build UI ======
-    const DATE_STAMP = new Date().toLocaleDateString('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).replaceAll('-', '.');
 
     const film = document.getElementById('film');
+    const notesWrap = document.getElementById('notes');
+    const DATE = new Date().toLocaleDateString('en-CA');
+
     PHOTOS.forEach((p,i)=>{
-      const fig = document.createElement('figure');
-      fig.className = 'frame';
-      fig.innerHTML = `
-        <div class="card" tabindex="0" aria-label="Photo ${i+1} toggle note">
-          <div class="card-face front">
-            <img class="thumb" src="${p.src}" alt="${p.alt}">
-          </div>
-          <div class="card-face back">
-            <div class="note">
-              <h3>${p.noteTitle}</h3>
-              <p>${p.note}</p>
-              <div class="meta">DATE ${DATE_STAMP} • ♥</div>
-            </div>
-          </div>
-        </div>
-        <div class="stamp"><span class="dot"></span>REC • ${DATE_STAMP}</div>
-      `;
-      const card = fig.querySelector('.card');
-      card.addEventListener('click', ()=> card.classList.toggle('is-flipped'));
-      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('is-flipped'); }});
+      const fig=document.createElement('figure');fig.className='frame';
+      fig.innerHTML=`
+        <div class="card">
+          <div class="card-face front"><img class="thumb" src="${p.src}" alt="${p.alt}"></div>
+          <div class="card-face back"><div class="note"><h3>${p.noteTitle}</h3><p>${p.note}</p><div class="meta">${DATE} • ♥</div></div></div>
+        </div>`;
+      const card=fig.querySelector('.card');
+      card.addEventListener('click',()=>card.classList.toggle('is-flipped'));
       film.appendChild(fig);
     });
 
-    const notesWrap = document.getElementById('notes');
-    NOTES.forEach((n, i)=>{
-      const div = document.createElement('div');
-      div.className = 'note';
-      div.innerHTML = `
-        <div class="card" tabindex="0" aria-label="Note ${i+1} flip">
-          <div class="card-face front">
-            <img class="thumb" src="${PHOTOS[i%PHOTOS.length].src}" alt="Photo cover for note">
-          </div>
-          <div class="card-face back">
-            <div class="note">
-              <h3>${n.title}</h3>
-              <p>${n.text}</p>
-              <div class="meta">STAMP ${DATE_STAMP} • Vancouver → You</div>
-            </div>
-          </div>
-        </div>
-      `;
-      const card = div.querySelector('.card');
-      card.addEventListener('click', ()=> card.classList.toggle('is-flipped'));
-      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('is-flipped'); }});
+    NOTES.forEach((n,i)=>{
+      const div=document.createElement('div');div.className='note';
+      div.innerHTML=`
+        <div class="card">
+          <div class="card-face front"><img class="thumb" src="${PHOTOS[i%PHOTOS.length].src}" alt=""></div>
+          <div class="card-face back"><div class="note"><h3>${n.title}</h3><p>${n.text}</p><div class="meta">${DATE} • Vancouver → You</div></div></div>
+        </div>`;
+      const card=div.querySelector('.card');
+      card.addEventListener('click',()=>card.classList.toggle('is-flipped'));
       notesWrap.appendChild(div);
     });
-
-    // ====== Audio + entry overlay (iOS friendly) ======
-    const audio = document.getElementById('bgm');
-    const enterBtn = document.getElementById('enterBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const gate = document.getElementById('gate');
-    const sparkles = document.getElementById('sparkles');
-    let userMuted = false;
-
-    enterBtn.addEventListener('click', async()=>{
-      try { await audio.play(); } catch(e) { console.log('Autoplay waits for user gesture', e); }
-      gate.style.opacity = '0';
-      gate.style.pointerEvents = 'none';
-      burst();
-    });
-    muteBtn.addEventListener('click', ()=>{
-      userMuted = !userMuted;
-      muteBtn.textContent = userMuted ? 'Unmute' : 'Mute';
-      audio.muted = userMuted;
-    });
-
-    const audioToggleBtn = document.getElementById('audioToggle');
-    audioToggleBtn.addEventListener('click', ()=>{
-      if(audio.paused){ audio.play(); audioToggleBtn.textContent = 'Pause Music'; }
-      else { audio.pause(); audioToggleBtn.textContent = 'Play Music'; }
-    });
-
-    // Minimalist confetti burst in wedding tones
-    function burst(){
-      for(let i=0;i<24;i++){
-        const s = document.createElement('span');
-        const size = Math.random()*6+4;
-        s.style.position='absolute';
-        s.style.left = (50 + (Math.random()*40-20))+'%';
-        s.style.top = (40 + (Math.random()*10-5))+'%';
-        s.style.width = s.style.height = size+'px';
-        s.style.borderRadius = '50%';
-        s.style.background = ['#c5a76e','#d7c49e','#e8dcc8','#bfa26a','#9f8f78'][i%5];
-        s.style.opacity = .9;
-        s.style.boxShadow = '0 0 6px rgba(0,0,0,.15)';
-        sparkles.appendChild(s);
-        const dy = - (Math.random()*120 + 80);
-        const dx = (Math.random()*80 - 40);
-        s.animate([
-          {transform:'translate(0,0)', opacity:1},
-          {transform:`translate(${dx}px, ${dy}px)`, opacity:0}
-        ], {duration: 1200 + Math.random()*600, easing:'cubic-bezier(.2,.7,.2,1)'});
-        setTimeout(()=>s.remove(), 1600);
-      }
-    }
-
-    // === Proposal interactions ===
-    (function(){
-      const noBtn = document.getElementById('noBtn');
-      const yesBtn = document.getElementById('yesBtn');
-      const yesModal = document.getElementById('yesModal');
-      const closeYes = document.getElementById('closeYes');
-      if(!noBtn || !yesBtn) return;
-
-      function moveNoButton(){
-        const margin = 12;
-        const w = Math.max(0, window.innerWidth - noBtn.offsetWidth - margin);
-        const h = Math.max(0, window.innerHeight - noBtn.offsetHeight - margin);
-        const x = Math.floor(Math.random() * (w - margin)) + margin;
-        const y = Math.floor(Math.random() * (h - margin)) + margin;
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = x + 'px';
-        noBtn.style.top = y + 'px';
-        noBtn.style.transition = 'transform .15s ease, left .15s ease, top .15s ease';
-        noBtn.style.transform = 'scale(0.98)';
-        setTimeout(()=> noBtn.style.transform = 'scale(1)', 160);
-      }
-
-      ['pointerenter','mouseenter','mouseover','focus','click','touchstart'].forEach(ev=>{
-        noBtn.addEventListener(ev, (e)=>{ e.preventDefault(); moveNoButton(); }, {passive:false});
-      });
-
-      yesBtn.addEventListener('click', ()=>{
-        try{ burst(); }catch(e){}
-        if(yesModal){ yesModal.style.display = 'grid'; }
-        setTimeout(()=>{
-          const film = document.getElementById('film');
-          if(film) window.scrollTo({top: film.getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth'});
-        }, 200);
-      });
-      if(closeYes){ closeYes.addEventListener('click', ()=>{ yesModal.style.display='none'; }); }
-
-      window.addEventListener('resize', ()=>{
-        if(getComputedStyle(noBtn).position==='fixed') moveNoButton();
-      });
-    })();
-
-    // keep the old confetti button handler if one exists
-    const maybeConfetti = document.getElementById('confettiBtn');
-    if(maybeConfetti){ maybeConfetti.addEventListener('click', burst); }
   </script>
 </body>
 </html>
